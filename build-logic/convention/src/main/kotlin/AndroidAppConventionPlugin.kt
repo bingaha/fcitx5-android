@@ -46,10 +46,6 @@ class AndroidAppConventionPlugin : AndroidBaseConventionPlugin() {
                     signingConfig = signingConfigs.fromProjectEnv(target)
                     proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
                 }
-                debug {
-                    // LOCAL-TRIAL: comment out to build official-ID apk for on-device replacement
-                    // applicationIdSuffix = ".debug"
-                }
                 all {
                     // remove META-INF/version-control-info.textproto
                     @Suppress("UnstableApiUsage")

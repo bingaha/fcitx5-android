@@ -185,10 +185,13 @@ abstract class BaseKeyboard(
                 swipeEnabled = true
                 swipeRepeatEnabled = true
                 swipeThresholdX = selectionSwipeThreshold
-                swipeThresholdY = disabledSwipeThreshold
+                swipeThresholdY = inputSwipeThreshold
                 onGestureListener = OnGestureListener { view, event ->
                     when (event.type) {
                         GestureType.Move -> {
+                            // swipe-up intent: consume so the tap-click is suppressed;
+                            // the actual delete happens on Up
+                            if (event.countY < 0 || event.totalY < 0) return@OnGestureListener true
                             val count = event.countX
                             if (count != 0) {
                                 onAction(KeyAction.MoveSelectionAction(count))
@@ -197,8 +200,14 @@ abstract class BaseKeyboard(
                             } else false
                         }
                         GestureType.Up -> {
-                            onAction(KeyAction.DeleteSelectionAction(event.totalX))
-                            false
+                            // swipe up (net): delete everything before cursor
+                            if (event.totalY < 0) {
+                                onAction(KeyAction.DeleteBeforeCursorAction)
+                                true
+                            } else {
+                                onAction(KeyAction.DeleteSelectionAction(event.totalX))
+                                false
+                            }
                         }
                         else -> false
                     }

@@ -79,6 +79,7 @@ import splitties.dimensions.dp
 import splitties.resources.styledColor
 import timber.log.Timber
 import kotlin.math.max
+import kotlin.math.min
 
 class FcitxInputMethodService : LifecycleInputMethodService() {
 
@@ -490,6 +491,47 @@ class FcitxInputMethodService : LifecycleInputMethodService() {
         if (lastSelection.isEmpty()) return
         selection.predict(lastSelection.start)
         currentInputConnection?.commitText("", 1)
+    }
+
+    /**
+     * Delete everything before the cursor (backspace swipe-up).
+     * Drops composing/preedit state first so no stale preedit survives,
+     * then removes the selected range (if any) plus all text before it.
+     * MUST be called on the main thread.
+     */
+    fun deleteAllBeforeCursor() {
+        val ic = currentInputConnection ?: return
+        ic.beginBatchEdit()
+        try {
+            if (composing.isNotEmpty()) {
+                selection.predict(composing.start)
+                composing.clear()
+                composingText = FormattedText.Empty
+                ic.setComposingText("", 1)
+            }
+            val (start, end) = selection.latest
+            if (start != end) {
+                selection.predict(min(start, end))
+                ic.commitText("", 1)
+            }
+            val pos = selection.latest.let { max(it.start, it.end) }
+            if (pos > 0) {
+                selection.predict(0)
+                resetComposingState()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    ic.deleteSurroundingTextInCodePoints(pos, 0)
+                } else {
+                    ic.deleteSurroundingText(pos, 0)
+                }
+            }
+        } catch (e: Exception) {
+            Timber.w("deleteAllBeforeCursor failed: $e")
+        } finally {
+            try {
+                ic.endBatchEdit()
+            } catch (_: Exception) {
+            }
+        }
     }
 
     fun sendCombinationKeyEvents(

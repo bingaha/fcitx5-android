@@ -164,6 +164,12 @@ class CommonKeyActionListener :
                     }
                     backspaceSwipeState = Stopped
                 }
+                is KeyAction.DeleteBeforeCursorAction -> {
+                    // backspace swipe-up: clear fcitx preedit, drop editor text before cursor
+                    backspaceSwipeState = Stopped
+                    service.postFcitxJob { reset() }
+                    service.deleteAllBeforeCursor()
+                }
                 is PickerSwitchAction -> {
                     // update lastSymbolType only when specified explicitly
                     val key = action.key?.also { k -> lastPickerType = k.name }

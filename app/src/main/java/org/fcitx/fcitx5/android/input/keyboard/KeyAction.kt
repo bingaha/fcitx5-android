@@ -43,4 +43,7 @@ sealed class KeyAction {
 
     /** Finger lifted from space key (tap, swipe end, or hold-to-talk release). */
     data object SpaceKeyUpAction : KeyAction()
+
+    /** Backspace swiped up: delete everything before the cursor. */
+    data object DeleteBeforeCursorAction : KeyAction()
 }
