@@ -202,6 +202,7 @@
     <string name="space_behavior_enumerate">Enumerate input methods</string>
     <string name="space_behavior_activate">Toggle input method activate state</string>
     <string name="space_behavior_picker">Show input method picker dialog</string>
+    <string name="space_behavior_voice">Hold space to dictate, release to commit (Aliyun ASR)</string>
     <string name="show_lang_switch_key">Show language switch key</string>
     <string name="horizontal_candidate_style">Horizontal candidate style</string>
     <string name="horizontal_candidate_never_fill">Never fill width</string>
@@ -319,6 +320,29 @@
     <string name="preferred_voice_input">Preferred voice input</string>
     <string name="edit_text_playground">EditText Playground</string>
     <string name="keyboard_height_percent_base">Keyboard height percent base</string>
+    <string name="voice_dictation">Voice dictation</string>
+    <string name="voice_dictation_enabled">Enable voice dictation (Aliyun ASR)</string>
+    <string name="show_voice_dictation_button">Show voice dictation button on toolbar</string>
+    <string name="voice_api_key">DashScope API Key</string>
+    <string name="voice_websocket_endpoint">WebSocket endpoint (wss://…)</string>
+    <string name="voice_model">Model</string>
+    <string name="voice_realtime_preview">Show realtime partial result</string>
+    <string name="voice_test_connection">Test connection</string>
+    <string name="voice_request_permission">Grant microphone permission</string>
+    <string name="voice_listening">Listening… tap Stop to finish</string>
+    <string name="voice_stop">Stop</string>
+    <string name="voice_cancel">Cancel</string>
+    <string name="voice_error_no_permission">Microphone permission not granted, please grant it in settings</string>
+    <string name="voice_error_not_configured">Please configure API Key and WebSocket endpoint first</string>
+    <string name="voice_error_auth">Authentication failed, check API Key</string>
+    <string name="voice_error_network">Network error, please retry</string>
+    <string name="voice_testing">Testing connection…</string>
+    <string name="voice_test_ok">Connection OK (handshake passed, no audio sent)</string>
+    <string name="voice_test_fail">Connection failed: %1$s</string>
+    <string name="voice_draft_hint">Unfinished recording saved:</string>
+    <string name="voice_draft_fill">Insert</string>
+    <string name="voice_draft_discard">Discard</string>
+    <string name="voice_recording_hold">● Recording… release to commit</string>
     <string name="display_metrics">Display metrics (Resources.getDisplayMetrics)</string>
     <string name="real_size">Real size (Display.getRealSize)</string>
 </resources>

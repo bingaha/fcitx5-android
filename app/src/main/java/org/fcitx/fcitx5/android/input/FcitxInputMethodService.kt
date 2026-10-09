@@ -983,6 +983,19 @@ class FcitxInputMethodService : LifecycleInputMethodService() {
         ic.finishComposingText()
     }
 
+    /**
+     * Realtime voice dictation preview in the editor composing span
+     * (candidate-bar style, no window swap). MUST be called on main thread.
+     * Empty text clears the preview. Final commit goes through [commitText].
+     */
+    fun setVoicePreview(text: String) {
+        if (text.isEmpty()) {
+            updateComposingText(FormattedText.Empty)
+            return
+        }
+        updateComposingText(FormattedText(arrayOf(text), intArrayOf(0), text.length))
+    }
+
     @SuppressLint("RestrictedApi")
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateInlineSuggestionsRequest(uiExtras: Bundle): InlineSuggestionsRequest? {

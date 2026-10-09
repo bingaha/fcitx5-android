@@ -47,7 +47,8 @@ class AndroidAppConventionPlugin : AndroidBaseConventionPlugin() {
                     proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
                 }
                 debug {
-                    applicationIdSuffix = ".debug"
+                    // LOCAL-TRIAL: comment out to build official-ID apk for on-device replacement
+                    // applicationIdSuffix = ".debug"
                 }
                 all {
                     // remove META-INF/version-control-info.textproto

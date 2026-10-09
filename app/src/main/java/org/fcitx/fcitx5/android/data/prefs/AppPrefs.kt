@@ -357,8 +357,7 @@ class AppPrefs(private val sharedPreferences: SharedPreferences) {
         ) { clipboardListening.getValue() }
     }
 
-    inner class Symbols : ManagedPreferenceCategory(R.string.emoji_and_symbols, sharedPreferences) {
-        val hideUnsupportedEmojis = switch(
+    inner class Symbols : ManagedPreferenceCategory(R.string.emoji_and_symbols, sharedPreferences) {        val hideUnsupportedEmojis = switch(
             R.string.hide_unsupported_emojis,
             "hide_unsupported_emojis",
             true
@@ -369,6 +368,23 @@ class AppPrefs(private val sharedPreferences: SharedPreferences) {
             "default_emoji_skin_tone",
             EmojiModifier.SkinTone.Default,
         )
+    }
+
+    inner class Voice : ManagedPreferenceCategory(R.string.voice_dictation, sharedPreferences) {
+        val enabled = switch(R.string.voice_dictation_enabled, "voice_dictation_enabled", false)
+        val showVoiceButton = switch(
+            R.string.show_voice_dictation_button, "show_voice_dictation_button", true
+        ) { enabled.getValue() }
+        val apiKey = string(R.string.voice_api_key, "voice_api_key", "")
+        { enabled.getValue() }
+        val websocketEndpoint = string(R.string.voice_websocket_endpoint, "voice_websocket_endpoint", "")
+        { enabled.getValue() }
+        val model = string(
+            R.string.voice_model, "voice_model", "qwen-audio-3.0-asr-flash-streaming"
+        ) { enabled.getValue() }
+        val realtimePreview = switch(
+            R.string.voice_realtime_preview, "voice_realtime_preview", true
+        ) { enabled.getValue() }
     }
 
     private val providers = mutableListOf<ManagedPreferenceProvider>()
@@ -390,6 +406,7 @@ class AppPrefs(private val sharedPreferences: SharedPreferences) {
     val candidates = Candidates().register()
     val clipboard = Clipboard().register()
     val symbols = Symbols().register()
+    val voice = Voice().register()
     val advanced = Advanced().register()
 
     @Keep

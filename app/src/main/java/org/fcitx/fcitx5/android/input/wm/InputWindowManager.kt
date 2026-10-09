@@ -157,7 +157,9 @@ class InputWindowManager : UniqueViewComponent<InputWindowManager, FrameLayout>(
         broadcaster.onWindowAttached(window)
     }
 
-    override val view: FrameLayout by lazy { context.frameLayout(R.id.input_window) }
+    override val view: FrameLayout by lazy {
+        HoldAwareFrameLayout(context).apply { id = R.id.input_window }
+    }
 
     override fun onScopeSetupFinished(scope: DynamicScope) {
         this.scope = scope

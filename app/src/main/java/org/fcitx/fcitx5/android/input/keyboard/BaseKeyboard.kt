@@ -172,6 +172,12 @@ abstract class BaseKeyboard(
                                 true
                             }
                         }
+                        // hold-to-talk release (and every other lift): must NOT
+                        // consume, otherwise the normal space tap would break
+                        GestureType.Up -> {
+                            onAction(KeyAction.SpaceKeyUpAction)
+                            false
+                        }
                         else -> false
                     }
                 }

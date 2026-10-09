@@ -40,4 +40,7 @@ sealed class KeyAction {
     data class PickerSwitchAction(val key: PickerWindow.Key? = null) : KeyAction()
 
     data object SpaceLongPressAction : KeyAction()
+
+    /** Finger lifted from space key (tap, swipe end, or hold-to-talk release). */
+    data object SpaceKeyUpAction : KeyAction()
 }

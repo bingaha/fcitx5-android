@@ -105,6 +105,11 @@ class MainFragment : PaddingPreferenceFragment() {
                     SettingsRoute.Clipboard
                 )
                 addDestinationPreference(
+                    R.string.voice_dictation,
+                    R.drawable.ic_baseline_keyboard_voice_24,
+                    SettingsRoute.VoiceInput
+                )
+                addDestinationPreference(
                     R.string.emoji_and_symbols,
                     R.drawable.ic_baseline_emoji_symbols_24,
                     SettingsRoute.Symbol
