@@ -1,4 +1,8 @@
-# fcitx5-android
+# fcitx5-android（改版）
+
+> 这是 [fcitx5-android](https://github.com/fcitx5-android/fcitx5-android) 的个人改版，
+> 新增阿里云 ASR 语音听写（长按空格说话/工具栏话筒）、删除键上滑清空光标前等功能。
+> 具体改了什么见 [docs/修改详情.md](./docs/修改详情.md)。
 
 [Fcitx5](https://github.com/fcitx/fcitx5) input method framework and engines ported to Android.
 
